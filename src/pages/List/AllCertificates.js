@@ -30,34 +30,47 @@ class AllCertificates extends Component {
 
       let filteredCertificates = [];
       myCertificatesData.map((certificate,index) => {
-        if((certificate.achievement_title.toLowerCase().includes(value.toLowerCase())))
-        {
-          filteredCertificates.push(
-            <Col key = {index} style={{marginBottom: '20px'}} md={3} sm={12}>
-            <Link to={{ pathname: "https://encert.app/certificate", search: "?"+certificate._id }} target="_blank">
-              <Card                    
-              style={{ boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)' }}
-              cover={<img alt="example" src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png" />}
-              // actions={[<Icon type="setting" />, <Icon type="edit" />, <Icon type="ellipsis" />]}
-              >
-              <Meta
-                // avatar={<Avatar src={(blockstack.loadUserData().profile.imag=='undefined')?(inventLogo):(blockstack.loadUserData().profile.image[0].contentUrl)} />}
-                title={certificate.achievement_title}
-                description={certificate.event_name}
-              />
-              </Card>
-            </Link>
-            </Col>
-          );
-        }
-      });
-      this.setState({
-        displayCertificates: filteredCertificates.length > 0 ? filteredCertificates : 'No certificates found for this criteria.'
-      })
-    }
+        for(let i = 0; i < Object.keys(certificate).length; i++)
+          {
+            if(Object.keys(certificate)[i] == '_id' ||
+               Object.keys(certificate)[i] == 'blockstack_id' ||
+               Object.keys(certificate)[i] == 'issue_date')
+            { 
+            }           
+            else
+            {
+              console.log(`${Object.keys(certificate)[i]}: `, Object.values(certificate)[i]);
+              if((Object.values(certificate)[i].toLowerCase().includes(searchValue.toLowerCase())))
+              {
+                filteredCertificates.push(
+                  <Col key = {index} style={{marginBottom: '20px'}} md={3} sm={12}>
+                  <Link to={{ pathname: "https://encert.app/certificate", search: "?"+certificate._id }} target="_blank">
+                    <Card                    
+                    style={{ boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)' }}
+                    cover={<img alt="example" src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png" />}
+                    // actions={[<Icon type="setting" />, <Icon type="edit" />, <Icon type="ellipsis" />]}
+                    >
+                    <Meta
+                      // avatar={<Avatar src={(blockstack.loadUserData().profile.imag=='undefined')?(inventLogo):(blockstack.loadUserData().profile.image[0].contentUrl)} />}
+                      title={certificate.achievement_title}
+                      description={certificate.event_name}
+                    />
+                    </Card>
+                  </Link>
+                  </Col>
+                );  
+              break;
+              }
+            }
+          }
+        })
+        this.setState({
+          displayCertificates: filteredCertificates.length > 0 ? filteredCertificates : 'No certificates found for this criteria.'
+        })
+  }
   
     onEnterSearchValue = (value) => {
-      console.log("Search value is: ", value);
+      // console.log("Search value is: ", value);
       const searchValue = value.length > 0 ? value : '';
       this.filterCertificates(searchValue);
     }
@@ -67,7 +80,7 @@ class AllCertificates extends Component {
         axios.get(`https://encert-server.herokuapp.com/issuer/participant/exist/${blockstack_id}`, {
         })
         .then(function (response) {
-          console.log("Response for id check is: ", response);
+          // console.log("Response for id check is: ", response);
           // console.log("Data exists for blockstack ID in server : ", response.data.data.result);
 
             if (!response.data.data.result) {
@@ -85,7 +98,7 @@ class AllCertificates extends Component {
 
                 for (let index = 0; index < arr.length; index++) {
                   const element = arr[index];
-                  console.log("certificate data ", element)
+                  // console.log("certificate data ", element)
 
                   displayCerts.push(
                     <Col key = {index} style={{marginBottom: '20px'}} md={3} sm={12}>
@@ -105,7 +118,7 @@ class AllCertificates extends Component {
                     </Col>
                   );                
                 }
-                console.log("Certificates to display: ", displayCerts);
+                // console.log("Certificates to display: ", displayCerts);
                 that.setState({
                   certificates: arr,
                   displayCertificates: displayCerts,
@@ -115,7 +128,7 @@ class AllCertificates extends Component {
                   // isSignedIn: true,
                   blockstackIdentity: blockstack_id    
                 })
-                console.log("states is ", that.state);
+                // console.log("states is ", that.state);
               })
   
               .catch(function (error) {
@@ -137,7 +150,7 @@ class AllCertificates extends Component {
             <div>
                 <h1>My Certificates File</h1>
                 <br />
-                <Search placeholder="Enter search term." onChange={(e) => this.onEnterSearchValue(e.target.value)} enterButton/>
+                <Search placeholder="Search by receiver name, team name, issuer name or event name." onChange={(e) => this.onEnterSearchValue(e.target.value)} enterButton/>
                 <br />            
                 <br />            
                 <br />            
