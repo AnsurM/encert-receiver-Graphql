@@ -46,6 +46,8 @@ class LoginPage extends Component {
     });
 
   handleSubmit = (err, values) => {
+    console.log("Submit called with values ", values);
+    alert();
     const { type } = this.state;
     if (!err) {
       const { dispatch } = this.props;
@@ -57,31 +59,6 @@ class LoginPage extends Component {
           type,
         },
       });
-
-      var userId = blockstack.auth().currentUser.uid;
-      // console.log('userID ', userId);
-      this.setState({ userId: userId });
-
-      let that = this;
-      blockstack
-        .database()
-        .ref('/users/' + userId)
-        .once('value')
-        .then(function(snapshot) {
-          // console.log('User record found! ', snapshot );
-          if (snapshot.key) {
-            if(snapshot.val()) {
-              const { name, email, profile_picture, cryptoPublicAddress } = snapshot.val();
-              UserInfo.setUserData(name, email, profile_picture, cryptoPublicAddress);
-              UserInfo.setSecret(values.password);
-              // that.setAvatarURL(profile_picture);
-            }
-          } else {
-            console.log("User record doesn't exist");
-          }
-        }
-    )
-    .catch(error => console.log('rejected ', error));
     }
     else
     {
@@ -96,7 +73,21 @@ class LoginPage extends Component {
   };
 
   onClickBlockStackSignIn = () => {
-     blockstack.redirectToSignInWithAuthRequest();
+    //  blockstack.redirectToSignInWithAuthRequest();
+    const { type } = this.state;
+    const { dispatch } = this.props;
+    const myValues = {
+      userName: "abc@gmail.com",
+      password: "password"
+    }
+      // UserInfo.setUserData(values.userName, '');
+      dispatch({
+        type: 'login/login',
+        payload: {
+          ...myValues,
+          type,
+        },
+      });
   }
 
   componentDidMount = () =>
@@ -216,10 +207,12 @@ class LoginPage extends Component {
           <Submit loading={submitting}>
             <FormattedMessage id="app.login.login" />
           </Submit>
-          <Button onClick = {this.onClickBlockStackSignIn}>
+
+          <Submit onClick={this.onClickBlockStackSignIn}>
             {/* <FormattedMessage id="app.login.loginWithBlockStack" /> */}
             Sign-in with Blockstack
-          </Button>
+          </Submit>
+
           <div className={styles.other}>
             {/*<FormattedMessage id="app.login.sign-in-with" />*/}
             {/*<Icon type="alipay-circle" className={styles.icon} theme="outlined" />*/}
