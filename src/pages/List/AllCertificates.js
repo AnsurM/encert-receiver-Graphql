@@ -5,6 +5,15 @@ import {
   Link  
 } from 'react-router-dom';
 import { filter } from 'minimatch';
+import {
+  FacebookShareButton,
+  LinkedinShareButton,
+  TwitterShareButton,
+  FacebookIcon,
+  LinkedinIcon,
+  TwitterIcon
+} from 'react-share';
+import { Certificate } from 'crypto';
 
 const axios = require('axios');
 const Search = Input.Search;
@@ -55,6 +64,28 @@ class AllCertificates extends Component {
                       title={certificate.achievement_title}
                       description={certificate.event_name}
                     />
+                      <br />
+                        <div style={{display: "flex", margin: "auto"}}>
+                          <FacebookShareButton
+                              url={`https://encert.app/certificate?${certificate._id}`} 
+                              quote="Have a look at my latest ceritification!"
+                              hashtag="#poweredByEncert"
+                          >
+                          <FacebookIcon size={28} round={true}/>
+                          </FacebookShareButton>
+                          <TwitterShareButton
+                              url={`https://encert.app/certificate?${certificate._id}`} 
+                              title="Have a look at my latest ceritification!"
+                              via="Encert.app"
+                          >
+                          <TwitterIcon size={28} round={true}/>
+                          </TwitterShareButton>
+                          <LinkedinShareButton 
+                              url={`https://encert.app/certificate?${certificate._id}`}                           
+                          >
+                          <LinkedinIcon size={28} round={true}/>
+                          </LinkedinShareButton>
+                        </div>
                     </Card>
                   </Link>
                   </Col>
@@ -113,6 +144,28 @@ class AllCertificates extends Component {
                         title={element.achievement_title}
                         description={element.event_name}
                       />
+                      <br />
+                        <div style={{display: "flex", margin: "auto"}}>
+                          <FacebookShareButton
+                              url={`https://encert.app/certificate?${element._id}`} 
+                              quote="Have a look at my latest ceritification!"
+                              hashtag="#poweredByEncert"
+                          >
+                          <FacebookIcon size={28} round={true}/>
+                          </FacebookShareButton>
+                          <TwitterShareButton
+                              url={`https://encert.app/certificate?${element._id}`} 
+                              title="Have a look at my latest ceritification!"
+                              via="Encert.app"
+                          >
+                          <TwitterIcon size={28} round={true}/>
+                          </TwitterShareButton>
+                          <LinkedinShareButton 
+                              url={`https://encert.app/certificate?${element._id}`}                           
+                          >
+                          <LinkedinIcon size={28} round={true}/>
+                          </LinkedinShareButton>
+                        </div>
                       </Card>
                     </Link>
                     </Col>

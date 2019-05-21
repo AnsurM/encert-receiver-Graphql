@@ -57,7 +57,7 @@ export default [
         name: 'Certificates',
         icon: 'table',
         routes: [
-          { path: '/certificates', redirect: '/certificates/certificateslist' },
+          { path: '/certificates', redirect: '/certificates/allcertificateslist' },
           //All Certificates
           {
             path: '/certificates/allcertificateslist',

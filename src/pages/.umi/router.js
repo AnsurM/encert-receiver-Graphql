@@ -90,7 +90,7 @@ models: () => [
         "routes": [
           {
             "path": "/certificates",
-            "redirect": "/certificates/certificateslist",
+            "redirect": "/certificates/allcertificateslist",
             "exact": true
           },
           {

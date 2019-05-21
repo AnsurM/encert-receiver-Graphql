@@ -16,8 +16,11 @@ export default {
 
   effects: {
     *login({ payload }, { call, put }) {
-      const response = yield call(firebaseSignIn, payload);
-      // console.log('login resp ', response);
+      let response = {
+        user: {
+          name: "ansur"
+        }
+      };
       yield put({
         type: 'changeLoginStatus',
         payload: response,
@@ -50,6 +53,39 @@ export default {
         message.error(response.message, 3);
       }
     },
+    
+    // *loginORIGINAL({ payload }, { call, put }) {
+    //   console.log("Payload is: ", payload);
+    //   yield put({
+    //     type: 'changeLoginStatus',
+    //     payload: response,
+    //   });
+    //   // Login successfully.
+    //   if (payload.userName) {
+    //   console.log("Payload is: ", payload);
+    //   reloadAuthorized();
+    //     const urlParams = new URL(window.location.href);
+    //     const params = getPageQuery();
+    //     let redirect = params;
+    //     if (redirect) {
+    //       const redirectUrlParams = new URL(redirect);
+    //       if (redirectUrlParams.origin === urlParams.origin) {
+    //         redirect = redirect.substr(urlParams.origin.length);
+    //         alert(redirect);
+    //         if (redirect.match(/^\/.*#/)) {
+    //           redirect = redirect.substr(redirect.indexOf('#') + 1);
+    //         }
+    //       } else {
+    //         window.location.href = redirect;
+    //         return;
+    //       }
+    //     }
+    //     yield put(routerRedux.replace(redirect || '/'));
+    //   } else {
+    //     message.error(response.message, 3);
+    //   }
+    // },
+
 
     *getCaptcha({ payload }, { call }) {
       yield call(getFakeCaptcha, payload);

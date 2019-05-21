@@ -9,6 +9,7 @@ import UserInfo from './UserInfo';
 import * as firebase from 'firebase';
 import * as blockstack from 'blockstack';
 import { Redirect } from 'dva/router';
+import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth"
 
 
 const { Tab, UserName, Password, Mobile, Captcha, Submit } = Login;
@@ -18,11 +19,45 @@ const { Tab, UserName, Password, Mobile, Captcha, Submit } = Login;
   submitting: loading.effects['login/login'],
   submitBlockStackLogin: loading.effects['login/login'],
 }))
+
 class LoginPage extends Component {
+
   state = {
     type: 'account',
     autoLogin: false,
   };
+  
+  uiConfig = {
+    signInFlow: "popup",
+    signInOptions: [
+      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+      firebase.auth.FacebookAuthProvider.PROVIDER_ID,  
+    ],
+    callbacks: {
+      signInSuccess: (response) =>{  
+        console.log("SIGNED IN: ", response);
+
+        // this.setState({
+
+        // })
+
+        const { type } = this.state;
+        const { dispatch } = this.props;
+        const myValues = {
+          userName: "abc@gmail.com",
+          password: "password"
+        }
+          // UserInfo.setUserData(values.userName, '');
+          dispatch({
+            type: 'login/login',
+            payload: {
+              ...myValues,
+              type,
+            },
+          });
+        }
+    }
+  }  
 
   onTabChange = type => {
     this.setState({ type });
@@ -47,7 +82,7 @@ class LoginPage extends Component {
 
   handleSubmit = (err, values) => {
     console.log("Submit called with values ", values);
-    alert();
+    // alert();
     const { type } = this.state;
     if (!err) {
       const { dispatch } = this.props;
@@ -212,6 +247,11 @@ class LoginPage extends Component {
             {/* <FormattedMessage id="app.login.loginWithBlockStack" /> */}
             Sign-in with Blockstack
           </Submit>
+
+          <StyledFirebaseAuth
+            uiConfig={this.uiConfig}
+            firebaseAuth={firebase.auth()}
+          />
 
           <div className={styles.other}>
             {/*<FormattedMessage id="app.login.sign-in-with" />*/}
