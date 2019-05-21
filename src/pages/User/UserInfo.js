@@ -25,6 +25,11 @@ const setUID = (id) => {
   // console.log('UID set to ', uid);
 };
 
+const setEmail = (userEmail) => {
+    email = userEmail;
+    console.log("Email set to: ", email);
+}
+
 const setUserData = (userName, userEmail, userAvatar, userCrypto) => {
   // console.log(`received data: `);
   // console.log(userName, userEmail, userAvatar, userCrypto, uid);
@@ -70,4 +75,4 @@ const resetData = () =>
   secret = '';
 }
 
-export default { getUserData, setUserData, setAvatarURL, getSecret, setSecret, getAvatarURL, setNameAndCryptoAddress, setUID, getUID, resetData };
+export default { getUserData, setUserData, setEmail, setAvatarURL, getSecret, setSecret, getAvatarURL, setNameAndCryptoAddress, setUID, getUID, resetData };

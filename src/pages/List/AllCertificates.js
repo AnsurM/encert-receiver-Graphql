@@ -201,7 +201,7 @@ class AllCertificates extends Component {
 
         return (
             <div>
-                <h1>My Certificates File</h1>
+                <h1>My Certificates</h1>
                 <br />
                 <Search placeholder="Search by receiver name, team name, issuer name or event name." onChange={(e) => this.onEnterSearchValue(e.target.value)} enterButton/>
                 <br />            
@@ -211,9 +211,11 @@ class AllCertificates extends Component {
                   this.state.displayCertificates.length > 0
                   ?
                     <Container>
-                    <Row>
+                    <div style={{width: "100%"}}>
+                    <Row style={{margin: "0 auto"}}>
                     {this.state.displayCertificates}
                     </Row>
+                    </div>
                     </Container>
                   :
                   <h4>No certifications achieved yet.</h4>

@@ -9,8 +9,7 @@ import UserInfo from './UserInfo';
 import * as firebase from 'firebase';
 import * as blockstack from 'blockstack';
 import { Redirect } from 'dva/router';
-import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth"
-
+import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 
 const { Tab, UserName, Password, Mobile, Captcha, Submit } = Login;
 
@@ -34,20 +33,17 @@ class LoginPage extends Component {
       firebase.auth.FacebookAuthProvider.PROVIDER_ID,  
     ],
     callbacks: {
-      signInSuccess: (response) =>{  
+      signInSuccess: (response) =>{ 
+        event.preventDefault(); 
         console.log("SIGNED IN: ", response);
-
-        // this.setState({
-
-        // })
-
+        let myEmail = ((response.email.length > 0) ? response.email : myValues.userName);
+        UserInfo.setEmail(myEmail);
         const { type } = this.state;
         const { dispatch } = this.props;
         const myValues = {
           userName: "abc@gmail.com",
           password: "password"
         }
-          // UserInfo.setUserData(values.userName, '');
           dispatch({
             type: 'login/login',
             payload: {
@@ -85,6 +81,10 @@ class LoginPage extends Component {
     // alert();
     const { type } = this.state;
     if (!err) {
+
+      let myEmail = values.userName;
+      UserInfo.setEmail(myEmail);
+
       const { dispatch } = this.props;
       // UserInfo.setUserData(values.userName, '');
       dispatch({
@@ -107,7 +107,7 @@ class LoginPage extends Component {
     });
   };
 
-  onClickBlockStackSignIn = () => {
+  onClickDemoSignIn = () => {
     //  blockstack.redirectToSignInWithAuthRequest();
     const { type } = this.state;
     const { dispatch } = this.props;
@@ -115,7 +115,7 @@ class LoginPage extends Component {
       userName: "abc@gmail.com",
       password: "password"
     }
-      // UserInfo.setUserData(values.userName, '');
+      UserInfo.setEmail('Demo account');
       dispatch({
         type: 'login/login',
         payload: {
@@ -168,7 +168,7 @@ class LoginPage extends Component {
             this.loginForm = form;
           }}
         >
-          <Tab key="account" tab={formatMessage({ id: 'app.login.tab-login-credentials' })}>
+          {/* <Tab key="account" tab={formatMessage({ id: 'app.login.tab-login-credentials' })}>
             {login.status === 'error' &&
               login.type === 'account' &&
               !submitting &&
@@ -194,7 +194,7 @@ class LoginPage extends Component {
               ]}
               onPressEnter={() => this.loginForm.validateFields(this.handleSubmit)}
             />
-          </Tab>
+          </Tab> */}
           {/*<Tab key="mobile" tab={formatMessage({ id: 'app.login.tab-login-mobile' })}>*/}
           {/*{login.status === 'error' &&*/}
           {/*login.type === 'mobile' &&*/}
@@ -239,19 +239,18 @@ class LoginPage extends Component {
               <FormattedMessage id="app.login.forgot-password" />
             </a>
           </div> */}
-          <Submit loading={submitting}>
+          {/* <Submit loading={submitting}>
             <FormattedMessage id="app.login.login" />
-          </Submit>
-
-          <Submit onClick={this.onClickBlockStackSignIn}>
-            {/* <FormattedMessage id="app.login.loginWithBlockStack" /> */}
-            Sign-in with Blockstack
-          </Submit>
+          </Submit> */}
 
           <StyledFirebaseAuth
             uiConfig={this.uiConfig}
             firebaseAuth={firebase.auth()}
           />
+          <Button type="primary" onClick={this.onClickDemoSignIn}>
+            {/* <FormattedMessage id="app.login.loginWithBlockStack" /> */}
+            Demo Sign-in.
+          </Button>
 
           <div className={styles.other}>
             {/*<FormattedMessage id="app.login.sign-in-with" />*/}
