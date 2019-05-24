@@ -52,11 +52,15 @@ class AllCertificates extends Component {
               if((Object.values(certificate)[i].toLowerCase().includes(searchValue.toLowerCase())))
               {
                 filteredCertificates.push(
-                  <Col key = {index} style={{marginBottom: '20px'}} md={3} sm={12}>
+                  <Col key = {index} style={{marginBottom: '20px'}} md={4} sm={4}>
                   <Link to={{ pathname: "https://encert.app/certificate", search: "?"+certificate._id }} target="_blank">
                     <Card                    
                     style={{ boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)' }}
-                    cover={<img alt="example" src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png" />}
+                    cover={<img 
+                            alt="example" 
+                            src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png" 
+                            style={{padding: "100px"}}
+                            />}
                     // actions={[<Icon type="setting" />, <Icon type="edit" />, <Icon type="ellipsis" />]}
                     >
                     <Meta
@@ -65,26 +69,27 @@ class AllCertificates extends Component {
                       description={certificate.event_name}
                     />
                       <br />
-                        <div style={{display: "flex", margin: "auto"}}>
-                          <FacebookShareButton
-                              url={`https://encert.app/certificate?${certificate._id}`} 
-                              quote="Have a look at my latest ceritification!"
-                              hashtag="#poweredByEncert"
-                          >
-                          <FacebookIcon size={28} round={true}/>
-                          </FacebookShareButton>
-                          <TwitterShareButton
-                              url={`https://encert.app/certificate?${certificate._id}`} 
-                              title="Have a look at my latest ceritification!"
-                              via="Encert.app"
-                          >
-                          <TwitterIcon size={28} round={true}/>
-                          </TwitterShareButton>
-                          <LinkedinShareButton 
-                              url={`https://encert.app/certificate?${certificate._id}`}                           
-                          >
-                          <LinkedinIcon size={28} round={true}/>
-                          </LinkedinShareButton>
+                        <div style={{display: "flex"}}>
+                            <FacebookShareButton
+                                style={{padding: "0px", margin: "0px"}}
+                                url={`https://encert.app/certificate?${certificate._id}`} 
+                                quote="Have a look at my latest ceritification!"
+                                hashtag="#poweredByEncert"
+                            >
+                            <FacebookIcon size={34} round={true}/>
+                            </FacebookShareButton>
+                            <TwitterShareButton
+                                url={`https://encert.app/certificate?${certificate._id}`} 
+                                title="Have a look at my latest ceritification!"
+                                via="Encert.app"
+                            >
+                            <TwitterIcon size={34} round={true}/>
+                            </TwitterShareButton>
+                            <LinkedinShareButton 
+                                url={`https://encert.app/certificate?${certificate._id}`}                           
+                            >
+                            <LinkedinIcon size={34} round={true}/>
+                            </LinkedinShareButton>
                         </div>
                     </Card>
                   </Link>
@@ -132,10 +137,12 @@ class AllCertificates extends Component {
                   // console.log("certificate data ", element)
 
                   displayCerts.push(
-                    <Col key = {index} style={{marginBottom: '20px'}} md={3} sm={12}>
+                    <Col key = {index} lg={4} md={4} sm={4} xs={4}>
                     <Link to={{ pathname: "https://encert.app/certificate", search: "?"+element._id }} target="_blank">
                       <Card                    
-                      style={{ boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)' }}
+                      style={{ border: "0.0px solid #A9A9A9", borderRadius: "10px", boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)', padding: "10px", textAlign: "center",
+                               
+                      }}
                       cover={<img alt="example" src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png" />}
                       // actions={[<Icon type="setting" />, <Icon type="edit" />, <Icon type="ellipsis" />]}
                       >
@@ -145,27 +152,35 @@ class AllCertificates extends Component {
                         description={element.event_name}
                       />
                       <br />
-                        <div style={{display: "flex", margin: "auto"}}>
-                          <FacebookShareButton
-                              url={`https://encert.app/certificate?${element._id}`} 
-                              quote="Have a look at my latest ceritification!"
-                              hashtag="#poweredByEncert"
-                          >
-                          <FacebookIcon size={28} round={true}/>
-                          </FacebookShareButton>
-                          <TwitterShareButton
-                              url={`https://encert.app/certificate?${element._id}`} 
-                              title="Have a look at my latest ceritification!"
-                              via="Encert.app"
-                          >
-                          <TwitterIcon size={28} round={true}/>
-                          </TwitterShareButton>
-                          <LinkedinShareButton 
-                              url={`https://encert.app/certificate?${element._id}`}                           
-                          >
-                          <LinkedinIcon size={28} round={true}/>
-                          </LinkedinShareButton>
-                        </div>
+                        <Container>
+                          <Row>                            
+                            <Col key = {element._id} xl={4} lg={4} md={4} sm={4} xs={4}>
+                            <FacebookShareButton
+                                url={`https://encert.app/certificate?${element._id}`} 
+                                quote="Have a look at my latest ceritification!"
+                                hashtag="#poweredByEncert"
+                            >
+                            <FacebookIcon size={34} round={true}/>
+                            </FacebookShareButton>
+                            </Col>
+                            <Col key = {element._id} xl={4} lg={4} md={4} sm={4} xs={4}>
+                            <TwitterShareButton                                
+                                url={`https://encert.app/certificate?${element._id}`} 
+                                title="Have a look at my latest ceritification!"
+                                via="Encert.app"
+                            >
+                            <TwitterIcon size={34} round={true}/>
+                            </TwitterShareButton>
+                            </Col>
+                            <Col key = {element._id} xl={4} lg={4} md={4} sm={4} xs={4}>
+                            <LinkedinShareButton 
+                                url={`https://encert.app/certificate?${element._id}`}
+                            >
+                            <LinkedinIcon size={34} round={true}/>
+                            </LinkedinShareButton>                             
+                            </Col>
+                          </Row>
+                        </Container>
                       </Card>
                     </Link>
                     </Col>
@@ -201,25 +216,31 @@ class AllCertificates extends Component {
 
         return (
             <div>
-                <h1>My Certificates</h1>
+                <h1 style={{textAlign: "center"}}>MY CERTIFICATIONS</h1>
                 <br />
-                <Search placeholder="Search by receiver name, team name, issuer name or event name." onChange={(e) => this.onEnterSearchValue(e.target.value)} enterButton/>
+                <div style={{width: "100%"}}>
+                  <div style={{width: "70%", display: "flex", margin: "0px auto"}}>
+                    <Search placeholder="Search by receiver name, team name, issuer name or event name." onChange={(e) => this.onEnterSearchValue(e.target.value)} enterButton/>
+                  </div>
+                </div>
                 <br />            
                 <br />            
                 <br />            
-                {
-                  this.state.displayCertificates.length > 0
-                  ?
-                    <Container>
-                    <div style={{width: "100%"}}>
-                    <Row style={{margin: "0 auto"}}>
-                    {this.state.displayCertificates}
-                    </Row>
-                    </div>
-                    </Container>
-                  :
-                  <h4>No certifications achieved yet.</h4>
-                }
+                  <div style={{width: "100%", textAlign: "center"}}>
+                    {
+                      this.state.displayCertificates.length > 0
+                      ?
+                        <Container>
+                        <div style={{width: "100%"}}>
+                        <Row style={{margin: "0 auto"}}>
+                        {this.state.displayCertificates}
+                        </Row>
+                        </div>
+                        </Container>
+                      :
+                      <h3>No certifications achieved yet.</h3>
+                    }
+                  </div>
             </div>
             );
     }
