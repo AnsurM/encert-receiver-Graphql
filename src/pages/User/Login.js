@@ -35,8 +35,9 @@ class LoginPage extends Component {
     callbacks: {
       signInSuccess: (response) =>{ 
         event.preventDefault(); 
-        console.log("SIGNED IN: ", response);
+        // console.log("SIGNED IN: ", response.uid);
         let myEmail = ((response.email.length > 0) ? response.email : myValues.userName);
+        UserInfo.setUID(response.uid);
         UserInfo.setEmail(myEmail);
         const { type } = this.state;
         const { dispatch } = this.props;

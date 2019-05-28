@@ -63,7 +63,8 @@ export default [
             path: '/certificates/allcertificateslist',
             name: 'My Certificates',
             icon: 'ordered-list',
-            component: './List/AllCertificates',
+            // component: './List/AllCertificates',
+            component: './List/AppoloFile',
           },
         ]
       },

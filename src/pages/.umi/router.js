@@ -102,7 +102,7 @@ models: () => [
 models: () => [
   import(/* webpackChunkName: 'p__List__models__rule.js' */'/home/ansur/Xord.One/ReceiverApp/Latest/encertReceiverAppGraphQL/src/pages/List/models/rule.js').then(m => { return { namespace: 'rule',...m.default}})
 ],
-  component: () => import(/* webpackChunkName: "layouts__BasicLayout" */'../List/AllCertificates'),
+  component: () => import(/* webpackChunkName: "layouts__BasicLayout" */'../List/AppoloFile'),
   LoadingComponent: require('/home/ansur/Xord.One/ReceiverApp/Latest/encertReceiverAppGraphQL/src/components/PageLoading/index').default,
 }),
             "exact": true
