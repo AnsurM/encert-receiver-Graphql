@@ -7,6 +7,7 @@ import router from 'umi/router';
 import GlobalHeader from '@/components/GlobalHeader';
 import TopNavHeader from '@/components/TopNavHeader';
 import styles from './Header.less';
+import encertLogo from '../assets/forQR1.png';
 
 const { Header } = Layout;
 
@@ -19,7 +20,7 @@ class HeaderView extends Component {
     if (!props.autoHideHeader && !state.visible) {
       return {
         visible: true,
-      };
+      };encertLogo
     }
     return null;
   }
@@ -119,6 +120,8 @@ class HeaderView extends Component {
     const { visible } = this.state;
     const isTop = layout === 'topmenu';
     const width = this.getHeadWidth();
+    console.log("PROPS HEADER: ", this.props);
+    let myProps = {...this.props, logo:encertLogo};
     const HeaderDom = visible ? (
       <Header style={{ padding: 0, width }} className={fixedHeader ? styles.fixedHeader : ''}>
         {isTop && !isMobile ? (
@@ -137,9 +140,11 @@ class HeaderView extends Component {
             onNoticeClear={this.handleNoticeClear}
             onMenuClick={this.handleMenuClick}
             onNoticeVisibleChange={this.handleNoticeVisibleChange}
-            {...this.props}
+            // {...this.props}
+            {...myProps}
           />
-        )}
+        )
+        }
       </Header>
     ) : null;
     return (

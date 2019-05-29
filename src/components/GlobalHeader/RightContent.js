@@ -238,7 +238,7 @@ export default class GlobalHeaderRight extends PureComponent {
         ) : (
           <HeaderDropdown overlay={menu}>
           <span className={`${styles.action} ${styles.account}`}>
-          {/* <Spin size="small" style={{ marginLeft: 8, marginRight: 8 }} /> */}
+          <Spin size="small" style={{ marginLeft: 8, marginRight: 8 }} />
           <span className={styles.name}>{this.state.useremail}</span>
           </span>
           </HeaderDropdown>

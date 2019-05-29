@@ -256,7 +256,7 @@ class AllCertificates extends Component {
                     }
                   </div>
             </div>
-            );
+          );
     }
 }
 
