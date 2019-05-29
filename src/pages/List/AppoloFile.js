@@ -3,9 +3,10 @@ import {ApolloProvider} from 'react-apollo';
 import ApolloClient from 'apollo-boost';
 import AllCertificates from './AllCertificates';
 import { render } from 'react-dom';
+import {url} from '../../utils/constants';
 
 const client = new ApolloClient({
-    uri: 'http://192.168.0.110:8000/graphql'
+    uri: url
    });
 
 const AppoloFile = () => {
