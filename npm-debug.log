@@ -7,7 +7,7 @@
 6 silly lifecycle crypto-fiat-converter-app@2.2.1~prestart: no script for prestart, continuing
 7 info lifecycle crypto-fiat-converter-app@2.2.1~start: crypto-fiat-converter-app@2.2.1
 8 verbose lifecycle crypto-fiat-converter-app@2.2.1~start: unsafe-perm in lifecycle true
-9 verbose lifecycle crypto-fiat-converter-app@2.2.1~start: PATH: /usr/share/npm/bin/node-gyp-bin:/home/ansur/Xord.One/ReceiverApp/Latest/encertReceiverAppGraphQL/node_modules/.bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+9 verbose lifecycle crypto-fiat-converter-app@2.2.1~start: PATH: /usr/share/npm/bin/node-gyp-bin:/home/ansur/Xord.One/ReceiverApp/Latest/encertReceiverAppGraphQL/node_modules/.bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
 10 verbose lifecycle crypto-fiat-converter-app@2.2.1~start: CWD: /home/ansur/Xord.One/ReceiverApp/Latest/encertReceiverAppGraphQL
 11 silly lifecycle crypto-fiat-converter-app@2.2.1~start: Args: [ '-c', 'cross-env APP_TYPE=site umi dev' ]
 12 silly lifecycle crypto-fiat-converter-app@2.2.1~start: Returned: code: 1  signal: null

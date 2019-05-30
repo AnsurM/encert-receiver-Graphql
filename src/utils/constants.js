@@ -1,1 +1,1 @@
-export const url = 'http://192.168.0.110:8000/graphql';
+export const url = 'http://192.168.43.59:8000/graphql';

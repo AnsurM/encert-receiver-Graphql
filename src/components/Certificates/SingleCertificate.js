@@ -18,6 +18,11 @@ import background from './assets/Background.jpg';
 import winner from './assets/winner.jpg';
 import runnerup from './assets/runnerup.jpg';
 import organizer from './assets/organizer.jpg';
+import {print} from 'graphql';
+import {url} from '../../utils/constants';
+
+import {GET_SINGLE_CERTIFICATE} from '../../components/GraphQL/queries';
+
 
 var QRCode = require('qrcode');
 const axios = require('axios');
@@ -30,27 +35,28 @@ class SingleCertificate extends Component {
     QRCode: ""
   }
 
-  generateQrCodes = async (certificate) => {
-    try {
-      //          for (let i = 0; i < certificates.length; i++) {
-      let qr = await QRCode.toDataURL('https://encert.app/certificate?' + certificate._id);
-      // this.setState({
-      //   qrImage: qr
-      // })
-      return qr;
-      //            await download(qr, `${certificates[i].receiver_name} , team ${certificates[i].team_name}.png`);
-      //          }
-    } catch (e) {
-      console.log(e);
-      return null;
-    }
-  }
+  // generateQrCodes = async (certificate) => {
+  //   try {
+  //     //          for (let i = 0; i < certificates.length; i++) {
+  //     let qr = await QRCode.toDataURL('https://encert.app/certificate?' + certificate._id);
+  //     // this.setState({
+  //     //   qrImage: qr
+  //     // })
+  //     return qr;
+  //     //            await download(qr, `${certificates[i].receiver_name} , team ${certificates[i].team_name}.png`);
+  //     //          }
+  //   } catch (e) {
+  //     console.log(e);
+  //     return null;
+  //   }
+  // }
 
-  async getQRCode(certificate) {
-    console.log("Getting QR for cert: ", certificate);
+  async getQRCode(certId) {
+    console.log("Getting QR for cert: ", certId);
     try {
       //          for (let i = 0; i < certificates.length; i++) {
-      let qr = await QRCode.toDataURL('https://encert.app/certificate?' + certificate._id);
+      // let qr = await QRCode.toDataURL('https://encert.app/certificate?' + certificate._id);
+      let qr = await QRCode.toDataURL(window.location.href);
 
       console.log("QR: ", qr);
       this.setState({
@@ -60,33 +66,55 @@ class SingleCertificate extends Component {
       //            await download(qr, `${certificates[i].receiver_name} , team ${certificates[i].team_name}.png`);
       //          }
     } catch (e) {
-      console.log(e);
+      console.log("QR Nai mila ", e);
       return null;
     }
   }
 
+  getCertficateFromServer = (cert_id) => {
+    this.getQRCode(cert_id);
+    let that=this;
+    axios.post(url, {
+          query: print(GET_SINGLE_CERTIFICATE),
+          variables: {
+            id:cert_id
+          },
+        })
+        .then(res => {
+          console.log("CERT RES: ", res);
+          that.setState({
+            certData: res.data.data.singlecertificate
+          })
+        })
+        .catch(err => console.log("CERT ERR: ", err))      
+  }
+  
   componentDidMount() {
     let query = this.props.location.search.split('?');
+    let certificateId = query[1];
     let that = this;
-    axios.get("https://encert-server.herokuapp.com/issuer/certificate/" + query[1])
-      .then(function (response) {
-        console.log("Certificate ", response.data.data.result)
-        that.getQRCode(response.data.data.result);
-        try {
-          that.setState({
-            certData: response.data.data.result,
-          })
-          // return qr;
-          //            await download(qr, `${certificates[i].receiver_name} , team ${certificates[i].team_name}.png`);
-          //          }
-        } catch (e) {
-          console.log(e);
-          // return null;
-        }
-      })
-      .catch(function (error) {
-        console.log(error)
-      })
+
+    this.getCertficateFromServer(certificateId);
+
+    // axios.get("https://encert-server.herokuapp.com/issuer/certificate/" + query[1])
+    //   .then(function (response) {
+    //     console.log("Certificate ", response.data.data.result)
+    //     that.getQRCode(response.data.data.result);
+    //     try {
+    //       that.setState({
+    //         certData: response.data.data.result,
+    //       })
+    //       // return qr;
+    //       //            await download(qr, `${certificates[i].receiver_name} , team ${certificates[i].team_name}.png`);
+    //       //          }
+    //     } catch (e) {
+    //       console.log(e);
+    //       // return null;
+    //     }
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error)
+    //   })
   }
 
   // state = {
@@ -294,7 +322,7 @@ class SingleCertificate extends Component {
 function mapStateToProp(state) {
   console.log(state)
   return ({
-    certificateData: state.signIn_reducer.certificate_data,
+    // certificateData: state.signIn_reducer.certificate_data,
   })
 }
 

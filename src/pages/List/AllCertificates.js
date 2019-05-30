@@ -41,7 +41,7 @@ class AllCertificates extends Component {
     state = {
         emailNotRegistered: false,
         certificates: [],
-        displayCertificates: [],
+        displayCertificates: <h2>Getting certificate</h2>,
         userIdentity: true,
         blockstackIdentity: blockstack_id    
     };
@@ -103,7 +103,7 @@ class AllCertificates extends Component {
           
                             displayCerts.push(
                               <Col key = {index} lg={4} md={4} sm={12} xs={12}>
-                              <Link to={{ pathname: "https://encert.app/certificate", search: "?"+element._id }} target="_blank">
+                              <Link to={{ pathname: "/singleCertificate/showCertificate", search: "?"+element._id}} target="_blank">
                                 <Card                    
                                 style={{ border: "0.0px solid #A9A9A9", borderRadius: "10px", boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)', padding: "10px", textAlign: "center",
                                         

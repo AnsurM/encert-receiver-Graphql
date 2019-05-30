@@ -120,7 +120,7 @@ class HeaderView extends Component {
     const { visible } = this.state;
     const isTop = layout === 'topmenu';
     const width = this.getHeadWidth();
-    console.log("PROPS HEADER: ", this.props);
+    // console.log("PROPS HEADER: ", this.props);
     let myProps = {...this.props, logo:encertLogo};
     const HeaderDom = visible ? (
       <Header style={{ padding: 0, width }} className={fixedHeader ? styles.fixedHeader : ''}>

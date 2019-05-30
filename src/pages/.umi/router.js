@@ -61,6 +61,37 @@ models: () => [
     ]
   },
   {
+    "path": "/singleCertificate",
+    "routes": [
+      {
+        "path": "/singleCertificate",
+        "redirect": "/singleCertificate/showCertificate",
+        "exact": true
+      },
+      {
+        "path": "/singleCertificate/showCertificate",
+        "name": "Single Certificate",
+        "component": _dvaDynamic({
+  
+  component: () => import(/* webpackChunkName: "components__Certificates__SingleCertificate" */'../../components/Certificates/SingleCertificate'),
+  LoadingComponent: require('/home/ansur/Xord.One/ReceiverApp/Latest/encertReceiverAppGraphQL/src/components/PageLoading/index').default,
+}),
+        "exact": true
+      },
+      {
+        "component": _dvaDynamic({
+  
+  component: () => import(/* webpackChunkName: "p__404" */'../404'),
+  LoadingComponent: require('/home/ansur/Xord.One/ReceiverApp/Latest/encertReceiverAppGraphQL/src/components/PageLoading/index').default,
+}),
+        "exact": true
+      },
+      {
+        "component": () => React.createElement(require('/home/ansur/Xord.One/ReceiverApp/Latest/encertReceiverAppGraphQL/node_modules/umi-build-dev/lib/plugins/404/NotFound.js').default, { pagesPath: 'src/pages', hasRoutesInConfig: true })
+      }
+    ]
+  },
+  {
     "path": "/",
     "component": _dvaDynamic({
   

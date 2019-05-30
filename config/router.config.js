@@ -17,6 +17,24 @@ export default [
       },
     ],
   },
+  {
+    path: '/singleCertificate',
+    routes: [
+      { path: '/singleCertificate', redirect: '/singleCertificate/showCertificate' },
+      { path: '/singleCertificate/showCertificate',
+        name: 'Single Certificate',
+        component: '../components/Certificates/SingleCertificate' 
+      },
+      // {
+      //   path: '/user/register-result',
+      //   name: 'register.result',
+      //   component: './User/RegisterResult',
+      // },
+      {
+        component: '404',
+      },
+    ],
+  },
   // app
   {
     path: '/',
