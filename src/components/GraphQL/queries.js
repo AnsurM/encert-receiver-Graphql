@@ -33,6 +33,15 @@ _id
 }
 }
 `
+export const GET_CURRENT_EVENTS = gql `
+mutation getcurrentevents($uid:String!){
+  getcurrentevents(uid:$uid){
+    event_name
+    event_logo
+    event_startDate
+   }
+}
+`
 
 export const ADD_UID = gql`
   mutation adduid($uid: String!) {

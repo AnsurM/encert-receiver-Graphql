@@ -45,29 +45,6 @@ export default [
       // dashboard
       { path: '/', redirect: '/certificates/allcertificateslist' },
       { path: '/dashboard', redirect: '/certificates/allcertificateslist' },
-      // {
-      //   path: '/dashboard',
-      //   name: 'dashboard',
-      //   icon: 'dashboard',
-      //   routes: [
-      //     { path: '/dashboard', redirect: '/dashboard/analysis' },
-      //     {
-      //       path: '/dashboard/analysis',
-      //       name: 'analysis',
-      //       component: './Dashboard/Analysis',
-      //     },
-      //     {
-      //       path: '/dashboard/monitor',
-      //       name: 'monitor',
-      //       component: './Dashboard/Monitor',
-      //     },
-      //     {
-      //       path: '/dashboard/workplace',
-      //       name: 'workplace',
-      //       component: './Dashboard/Workplace',
-      //     },
-      //   ],
-      // },
 
       //List of Certificates
       {
@@ -83,6 +60,36 @@ export default [
             icon: 'ordered-list',
             // component: './List/AllCertificates',
             component: './List/AppoloFile',
+          },
+        ]
+      },
+      //List of Events
+      {
+        path: '/events',
+        name: 'Events',
+        icon: 'ordered-list',
+        routes: [
+          { path: '/events', redirect: '/events/upcomingevents' },
+          //Current Events
+          {
+            path: '/events/currentevents',
+            name: 'Ongoing Events',
+            icon: 'table',
+            component: './Events/CurrentEvents',
+          },
+          //Upcoming Events
+          {
+            path: '/events/upcomingevents',
+            name: 'Upcoming Events',
+            icon: 'table',
+            component: './Events/UpcomingEvents',
+          },
+          //Past Events
+          {
+            path: '/events/pastevents',
+            name: 'Past Events',
+            icon: 'table',
+            component: './Events/PastEvents',
           },
         ]
       },

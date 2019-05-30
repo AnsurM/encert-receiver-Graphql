@@ -144,6 +144,54 @@ models: () => [
         ]
       },
       {
+        "path": "/events",
+        "name": "Events",
+        "icon": "ordered-list",
+        "routes": [
+          {
+            "path": "/events",
+            "redirect": "/events/upcomingevents",
+            "exact": true
+          },
+          {
+            "path": "/events/currentevents",
+            "name": "Ongoing Events",
+            "icon": "table",
+            "component": _dvaDynamic({
+  
+  component: () => import(/* webpackChunkName: "layouts__BasicLayout" */'../Events/CurrentEvents'),
+  LoadingComponent: require('/home/ansur/Xord.One/ReceiverApp/Latest/encertReceiverAppGraphQL/src/components/PageLoading/index').default,
+}),
+            "exact": true
+          },
+          {
+            "path": "/events/upcomingevents",
+            "name": "Upcoming Events",
+            "icon": "table",
+            "component": _dvaDynamic({
+  
+  component: () => import(/* webpackChunkName: "layouts__BasicLayout" */'../Events/UpcomingEvents'),
+  LoadingComponent: require('/home/ansur/Xord.One/ReceiverApp/Latest/encertReceiverAppGraphQL/src/components/PageLoading/index').default,
+}),
+            "exact": true
+          },
+          {
+            "path": "/events/pastevents",
+            "name": "Past Events",
+            "icon": "table",
+            "component": _dvaDynamic({
+  
+  component: () => import(/* webpackChunkName: "layouts__BasicLayout" */'../Events/PastEvents'),
+  LoadingComponent: require('/home/ansur/Xord.One/ReceiverApp/Latest/encertReceiverAppGraphQL/src/components/PageLoading/index').default,
+}),
+            "exact": true
+          },
+          {
+            "component": () => React.createElement(require('/home/ansur/Xord.One/ReceiverApp/Latest/encertReceiverAppGraphQL/node_modules/umi-build-dev/lib/plugins/404/NotFound.js').default, { pagesPath: 'src/pages', hasRoutesInConfig: true })
+          }
+        ]
+      },
+      {
         "component": _dvaDynamic({
   
   component: () => import(/* webpackChunkName: "p__404" */'../404'),
