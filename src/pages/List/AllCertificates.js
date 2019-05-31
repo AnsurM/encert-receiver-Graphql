@@ -21,7 +21,6 @@ import {ADD_UID, GET_DETAILS} from '../../components/GraphQL/queries';
 import {print} from 'graphql';
 import {url} from '../../utils/constants';
 
-
 const axios = require('axios');
 const Search = Input.Search;
 const blockstack_id = "1CfgtF2dzq13RcrfXXcu76FUfad7yPzu5T";

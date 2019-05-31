@@ -3,8 +3,13 @@ import { Carousel } from 'antd';
 import { GET_CURRENT_EVENTS } from '../../components/GraphQL/queries';
 import { print } from 'graphql';
 import { url } from '../../utils/constants';
+import { Container, Row, Col } from 'react-grid-system';
+import { Card, Icon, Avatar } from 'antd';
 
 import './CurrentEvents.css';
+
+const { Meta } = Card;
+
 const axios = require('axios');
 const orgId = 'HA83UtP4MgaHl4NyJDg2efo2z3e2';
 
@@ -16,6 +21,7 @@ class CurrentEvents extends Component {
     state = {
         dotPosition: 'top',
         displayData: [],
+        gridData: [],
         events: [
             {
                 name: "ICC World Cup 2019",
@@ -38,18 +44,26 @@ class CurrentEvents extends Component {
     generateCarousels = (data) => {
         let myDisplayData = data.map(event => {
             return (
-                <div style={{ width: "100%" }}>
-                    <div style={{ margin: "0 auto", textAlign: "center" }}>
-                        <h2>Event: {event.event_name}</h2>
-                        <img src={event.event_logo} alt={event.event_name}
-                            style={{
-                                width: "800px",
-                                height: "500px",
-                                display: "block",
-                                margin: "0 auto"
-                            }}
-                        />
-                        <h2>Starting: {event.event_startDate}</h2>
+                <div style={{ width: "100%"}}>
+                    <div style={{width: "80%", margin: "0 auto", textAlign: "center", paddingBottom: "15px"}}>
+                        <Card
+                            style={{ border: "2px solid #454d66", borderRadius: "5px", backgroundColor: "#dedede" }}
+                            // style={{ width: 300 }}
+                            cover={
+                                <img
+                                    alt="example"
+                                    src={event.event_logo}
+                                    style={{ height: "350px", borderBottom: "2px solid #454d66" }}
+                                />
+                            }
+                        >
+                            <Meta
+                                // avatar={<Avatar src={event.event_logo} />}
+                                title={event.event_name.toUpperCase()}
+                                description={`STARTING: ${event.event_startDate.toUpperCase()}`}
+                            />
+                        </Card>
+                        <br />
                     </div>
                 </div>
             );
@@ -60,24 +74,50 @@ class CurrentEvents extends Component {
         })
     }
 
+    generateGrid = (data) => {
+        let myData = data;
+        let newData = myData.map(element => {
+            console.log("Url: ", element.logo_url);
+            return (
+                <Col xs={12} sm={6} md={4} lg={4} style={{ margin: "15px auto" }}>
+                    <Card
+                        style={{ border: "1.5px solid #D3D3D3", backgroundColor: "#dedede" }}
+                        // style={{ width: 300 }}
+                        cover={
+                            <img
+                                alt="example"
+                                src={element.event_logo}
+                                style={{ height: "200px", borderBottom: "2px solid black" }}
+                            />
+                        }
+                    >
+                        <Meta
+                            // avatar={<Avatar src={element.event_logo} />}
+                            title={element.event_name.toUpperCase()}
+                            description={`STARTING: ${element.event_startDate.toUpperCase()}`}
+                        />
+                    </Card>
+                </Col>
+            );
+        })
+        this.setState({
+            gridData: newData
+        })
+    }
+
     getEventsFromServer = () => {
         axios.post(url, {
             query: print(GET_CURRENT_EVENTS),
             variables: {
-                uid: ''  
+                uid: ''
             },
         })
             .then(res => {
                 console.log("Event details \n", res.data.data.getcurrentevents);
                 this.generateCarousels(res.data.data.getcurrentevents);
-                // this.setState({
-                //     certificates: res.data.data.getdetails
-                // }, () => {
-                //     this.makeDisplayCertificates(this.state.certificates);
-                // })
+                this.generateGrid(res.data.data.getcurrentevents);
             })
             .catch(err => console.log(err))
-
     }
 
     componentDidMount() {
@@ -89,17 +129,37 @@ class CurrentEvents extends Component {
         const { dotPosition } = this.state;
 
         return (
-            <div style={{ backgroundColor: "#D3D3D3", height: '600px' }}>
+            <div style={{ width: "100%", margin: "auto" }}>
+                <div style={{ width: "100%", margin: "auto", backgroundColor: "#B0A9A7", borderRadius: "10px"}}>
+                    <br />
+                    <h2 style={{ textAlign: "center", margin: "10px 0px", color:"#beeef7" }}>HIGHLIGHT EVENTS</h2>
+                    {this.state.displayData.length > 0
+                        ?
+                            <Carousel autoplay dotPosition={dotPosition}>
+                                    {this.state.displayData}
+                            </Carousel>
+                        :
+                        <h2>Getting events....</h2>
+                    }
                 <br />
-                {this.state.displayData.length > 0 
-                    ?
-                    <Carousel autoplay dotPosition={dotPosition}>
-                        {this.state.displayData}
-                    </Carousel>
-                    : 
-                    <h2>Getting events....</h2>
-                }
+                </div>
                 <br />
+                <div style={{ width: "100%", margin: "0", textAlign: "center", backgroundColor: "#454d66", borderRadius: "15px" }}>
+                    <br />
+                    <h2 style={{ color: "#d9d872", margin: "10px 0px" }}>ALL ONGOING EVENTS</h2>
+                    <Container>
+                        <Row>
+                            {this.state.gridData}
+                            {this.state.gridData}
+                            {this.state.gridData}
+                            {this.state.gridData}
+                            {this.state.gridData}
+                            {this.state.gridData}
+                        </Row>
+                    </Container>
+                    <br />
+                    <br />
+                </div>
             </div>
         );
     }
